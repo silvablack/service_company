@@ -1,0 +1,17 @@
+{
+  "name": "company-service",
+  "version": "1.0.0",
+  "description": "Company Service on Node.js",
+  "author": "Paulo Silva <paulosilvadev3@gmail.com>",
+  "main": "./src/app.js",
+  "scripts": {
+    "start": "node ./src/app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.1",
+    "mongoose": "^5.2.7",
+    "nodemon": "^1.18.3",
+    "redis": "^2.8.0"
+  }
+}
