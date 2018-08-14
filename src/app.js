@@ -3,12 +3,12 @@
 const express = require('express');
 const app = express();
 
-const router = express.Router();
 const bodyParser = require("body-parser");
 
-// ROTAS
+// Routes
 const index = require("./routes/index");
-const companyRoute = require("./routes/company");
+const companyRoute = require("./routes/companyRoute");
+
 
 const _PORT = 5000;
 const _HOST = '0.0.0.0';
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.use('/',index);
+app.use('/', index);
 app.use('/company', companyRoute);
 
 app.listen(_PORT,_HOST);

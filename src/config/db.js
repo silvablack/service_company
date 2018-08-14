@@ -1,13 +1,16 @@
-var mongoosee = require('mongoose')
-mongoosee.connect('mongodb://127.0.0.1/db_employees')
+'use strict';
 
-var Schema = mongoosee.Schema;
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://mongo:27017/db_challenge',{ useNewUrlParser: true });
+
+var Schema = mongoose.Schema;
 
 var companySchema = new Schema({
     name: String,
-    mail: String
+    mail: String,
+    cnpj: String
 });
 
-var Company = mongoosee.model('Company',companySchema);
+var Company = mongoose.model('Company',companySchema);
 
 module.exports = Company;
