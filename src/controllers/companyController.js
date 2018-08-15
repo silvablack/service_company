@@ -1,18 +1,39 @@
+/**
+ * @author Paulo Silva
+ * @description Company Controller Service
+ * @returns methods <get, getById, post, put, delete>
+ * @version 1.0.0
+ */
 'use strict';
 
-const CompanyRepository = require('../repository/companyRepository');
+/**
+ * @requires Company Model
+ */
+const CompanyModel = require('../model/companyModel');
 
+/**
+ * @requires Redis Data Cache
+ */
 var redis = require("redis");
+/**
+ * @constructor Redis Client
+ */
 var client = redis.createClient('redis://redis:6379');
 
-exports.get = (req,res,next)=>{
+/**
+ * @name get
+ * @description Request all data on Mongo or Redis if cached
+ * @param {Request} req 
+ * @param {Response} res 
+ */
+exports.get = (req,res)=>{
     client.get("allCompanies", (err, reply)=>{
         if(reply){
             console.log('cached');
             res.send(reply);
         }else{
             console.log('find db');
-            CompanyRepository.getAll()
+            CompanyModel.getAll()
             .then((company)=>{
                 client.set('allCompanies',JSON.stringify(company));
                 client.expire('allCompanies',20);
@@ -23,31 +44,59 @@ exports.get = (req,res,next)=>{
     
 }
 
-exports.getById = (req,res,next)=>{
-    CompanyRepository.getById(req.params.id)
+/**
+ * @name getById
+ * @description Request one Company data on Mongo
+ * @param {Request} req 
+ * @param {Response} res
+ * @returns {ObjectJson}
+ */
+exports.getById = (req,res)=>{
+    CompanyModel.getById(req.params.id)
     .then((company)=>{
         res.status(200).send(company);
     }).catch(err => res.status(500).send(err));
 }
 
-exports.post = (req,res,next)=>{
+/**
+ * @name post
+ * @description Post data to save Company on Mongo
+ * @param {Request} req 
+ * @param {Response} res
+ * @returns {ObjectJson}
+ */
+exports.post = (req,res)=>{
     const data = req.body;
-    CompanyRepository.create(data)
+    CompanyModel.create(data)
     .then((company)=>{
         res.status(200).send(company);
     }).catch(err => res.status(500).send(err));
 }
 
-exports.put = (req,res,next)=>{
+/**
+ * @name put
+ * @description Post data to update Company on Mongo
+ * @param {Request} req 
+ * @param {Response} res
+ * @returns {ObjectJson}
+ */
+exports.put = (req,res)=>{
     const data = req.body;
-    CompanyRepository.update(data)
+    CompanyModel.update(data)
     .then((company)=>{
         res.status(201).send(company);
     }).catch(err => res.status(500).send(err));
 }
 
-exports.delete = (req,res,next)=>{
-    CompanyRepository.delete(req.params.id)
+/**
+ * @name delete
+ * @description Delete Company data on Mongo
+ * @param {Request} req 
+ * @param {Response} res
+ * @returns {ObjectJson}
+ */
+exports.delete = (req,res)=>{
+    CompanyModel.delete(req.params.id)
     .then(()=>{
         res.status(200).send('Excluído');
     }).catch(err => console.error.bind(console, `Error $(err)`));
