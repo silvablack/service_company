@@ -21,8 +21,8 @@ module.exports = new class CompanyModel{
     /**
      * @returns Company.findById()
      */
-    getById(){
-        return Company.findById();
+    getById(id){
+        return Company.findById(id);
     }
     /**
      * 
