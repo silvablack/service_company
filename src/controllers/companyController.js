@@ -103,6 +103,6 @@ exports.put = (req,res)=>{
 exports.delete = (req,res)=>{
     CompanyModel.delete(req.params.id)
     .then(()=>{
-        res.status(200).send('Excluído');
+        res.status(200).send({delete: true});
     }).catch(err => console.error.bind(console, `Error $(err)`));
 }
