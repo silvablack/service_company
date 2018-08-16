@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 /**
  * @constructor Connect Mongo
  */
-mongoose.connect('mongodb://mongo:27017/db_challenge',{ useNewUrlParser: true });
+mongoose.connect('mongodb://company-data:27027/db_challenge',{ useNewUrlParser: true });
 
 var Schema = mongoose.Schema;
 
