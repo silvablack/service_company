@@ -5,8 +5,18 @@
  * @version 1.0.0
  */
 
+ /**
+  * @requires express.js
+  */
 const express = require("express");
+/**
+ * @constructor Express Router
+ */
 const router = express.Router();
+
+ /**
+  * @requires Company Controller
+  */
 const controller = require('../controllers/companyController');
 
 /**
