@@ -30,7 +30,7 @@ const companyRoute = require("./routes/companyRoute");
 /**
  * @description Define host and port to server listening
  */
-const _PORT = 5000;
+const _PORT = 5010;
 const _HOST = '0.0.0.0';
 
 
