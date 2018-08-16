@@ -30,8 +30,8 @@ const companyRoute = require("./routes/companyRoute");
 /**
  * @description Define host and port to server listening
  */
-const _PORT = 5010;
-const _HOST = '0.0.0.0';
+const _PORT = process.env.PORT_SERVICE_COMPANY;
+const _HOST = process.env.URL_SERVICE_COMPANY;
 
 
 app.use(bodyParser.urlencoded({
