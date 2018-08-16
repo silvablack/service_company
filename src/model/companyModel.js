@@ -26,7 +26,7 @@ module.exports = new class CompanyModel{
     }
     /**
      * 
-     * @param {_id: String, name: String, mail: String<validate|mail>, cnpj: int} company 
+     * @param {_id: String, name: String, mail: String<validate|mail>, cnpj: String} 
      * @returns Company.create()
      */
     create(company){
@@ -34,7 +34,7 @@ module.exports = new class CompanyModel{
     }
     /**
      * 
-     * @param {_id}{_id: String, name: String, mail: String<validate|mail>, cnpj: int} company 
+     * @param _id {_id: String, name: String, mail: String<validate|mail>, cnpj: String} 
      * @returns Company.findByIdAndUpdate()
      */
     update(id, company){
@@ -42,7 +42,7 @@ module.exports = new class CompanyModel{
     }
     /**
      * 
-     * @param {String} id 
+     * @param id
      * @returns Company.findByIdAndRemove(id)
      */
     delete(id){
