@@ -18,7 +18,7 @@ var redis = require("redis");
 /**
  * @constructor Redis Client
  */
-var client = redis.createClient('redis://process.env.URL_CACHE_COMPANY:process.env.PORT_CACHE_COMPANY');
+var client = redis.createClient(`redis://${process.env.URL_CACHE_COMPANY}`);
 
 /**
  * @name get
