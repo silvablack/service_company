@@ -22,9 +22,10 @@ var client = redis.createClient('redis://redis:6379');
 
 /**
  * @name get
- * @description Request all data on Mongo or Redis if cached
+ * @description Send request to find all companies
  * @param {Request} req 
  * @param {Response} res 
+ * @returns {Object}[] Company
  */
 exports.get = (req,res)=>{
     client.get("allCompanies", (err, reply)=>{
@@ -46,10 +47,11 @@ exports.get = (req,res)=>{
 
 /**
  * @name getById
- * @description Request one Company data on Mongo
+ * @description Send Request to Find Model By ID
  * @param {Request} req 
  * @param {Response} res
- * @returns {ObjectJson}
+ * @method getById
+ * @returns {Object} Company
  */
 exports.getById = (req,res)=>{
     CompanyModel.getById(req.params.id)
@@ -60,10 +62,11 @@ exports.getById = (req,res)=>{
 
 /**
  * @name post
- * @description Post data to save Company on Mongo
+ * @description Send Company Object to Create Model
  * @param {Request} req 
  * @param {Response} res
- * @returns {ObjectJson}
+ * @method create
+ * @returns {Object} Company
  */
 exports.post = (req,res)=>{
     const data = req.body;
@@ -75,10 +78,11 @@ exports.post = (req,res)=>{
 
 /**
  * @name put
- * @description Post data to update Company on Mongo
+ * @description Send Param ID and Data Company to Model Update
  * @param {Request} req 
  * @param {Response} res
- * @returns {ObjectJson}
+ * @method update
+ * @returns {Object} Company
  */
 exports.put = (req,res)=>{
     const data = req.body;
@@ -93,7 +97,8 @@ exports.put = (req,res)=>{
  * @description Delete Company data on Mongo
  * @param {Request} req 
  * @param {Response} res
- * @returns {ObjectJson}
+ * @method delete
+ * @returns {Object} INFO JSON
  */
 exports.delete = (req,res)=>{
     CompanyModel.delete(req.params.id)

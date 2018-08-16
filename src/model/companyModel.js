@@ -38,12 +38,7 @@ module.exports = new class CompanyModel{
      * @returns Company.findByIdAndUpdate()
      */
     update(id, company){
-        const updatedcompany = {
-            name: company.name,
-            mail: company.mail,
-            cnpj: company.cnpj
-        }
-        return Company.findByIdAndUpdate(id, updatedcompany, {new: true});
+        return Company.findByIdAndUpdate(id, company, {new: true});
     }
     /**
      * 
