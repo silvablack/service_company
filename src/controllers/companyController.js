@@ -82,7 +82,7 @@ exports.post = (req,res)=>{
  */
 exports.put = (req,res)=>{
     const data = req.body;
-    CompanyModel.update(data)
+    CompanyModel.update(req.params.id,data)
     .then((company)=>{
         res.status(201).send(company);
     }).catch(err => res.status(500).send(err));
