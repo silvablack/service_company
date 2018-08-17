@@ -48,4 +48,7 @@ module.exports = new class CompanyModel{
     delete(id){
         return Company.findByIdAndRemove(id);
     }
+    deleteAll(){
+        return Company.remove({});
+    }
 }
