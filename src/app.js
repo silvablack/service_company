@@ -37,6 +37,6 @@ const companyRoute = require("./routes/companyRoute");
  * @description Set routes config on server
  */
 app.use('/', index);
-app.use('/company', companyRoute);
+app.use('/company',companyRoute);
 
 module.exports = app;

@@ -1,5 +1,5 @@
 'use strict';
-import HttpStatus from 'http-status';
+const HttpStatus = require('http-status');
 /**
  * @author Paulo Silva
  * @description Company Controller Service
@@ -48,25 +48,29 @@ class CompanyController{
      */
     get(){
         return new Promise((resolve,reject)=>{
-        if(this.cache){
-            if(reply){
-                this.client.get("allCompanies", (err, reply)=>{
-                console.log('cached');
-                resolve(defaultResponse(reply));
-                });  
-            } 
-        }else{
-            console.log('find db');
-            
-                this.CompanyModel.getAll()
-                .then((company)=>{
-                    if(this.cache){
-                       this.client.set('allCompanies',JSON.stringify(company));
-                       this.client.expire('allCompanies',20);
+            if(this.cache){
+                this.client.get("allCompanies",(err,reply)=>{
+                    if(reply){
+                        console.log('get cache');
+                        this.cache_data = reply;
+                        resolve(defaultResponse(reply));
+                    }else{
+                        this.CompanyModel.getAll()
+                            .then((company)=>{
+                                console.log('find db');
+                                this.client.set('allCompanies',JSON.stringify(company));
+                                this.client.expire('allCompanies',20);
+                                console.log('set cache');
+                            resolve(defaultResponse(company));
+                        }).catch(err => reject(errorResponse(err.message)));
                     }
-                   resolve(defaultResponse(company));
-               }).catch(err => reject(errorResponse(err.message)));
-            
+                });
+            }else{
+                this.CompanyModel.getAll()
+                    .then((company)=>{
+                        console.log('find db - no cache');
+                    resolve(defaultResponse(company));
+                }).catch(err => reject(errorResponse(err.message)));
             }
         });
     }
@@ -79,9 +83,9 @@ class CompanyController{
      * @method getById
      * @returns {Object} Company
      */
-    getById(){
+    getById(id){
         return new Promise((resolve,reject)=> {
-            CompanyModel.getById(req.params.id)
+            this.CompanyModel.getById(id)
             .then((company)=>{
                 resolve(defaultResponse(company));
             }).catch(err => reject(errorResponse(err.message)));
@@ -96,12 +100,13 @@ class CompanyController{
      * @method create
      * @returns {Object} Company
      */
-    post(){
-        const data = req.body;
-        CompanyModel.create(data)
-        .then((company)=>{
-            res.status(200).send(company);
-        }).catch(err => res.status(500).send(err));
+    post(data){
+        return new Promise((resolve,reject)=>{
+            this.CompanyModel.create(data)
+            .then((company)=>{
+                resolve(defaultResponse(company,HttpStatus.CREATED));
+            }).catch(err => reject(errorResponse(err.message,HttpStatus.UNPROCESSABLE_ENTITY)));
+        });
     }
 
     /**
@@ -112,12 +117,13 @@ class CompanyController{
      * @method update
      * @returns {Object} Company
      */
-    put(){
-        const data = req.body;
-        CompanyModel.update(req.params.id,data)
+    put(id,data){
+       return new Promise((resolve,reject)=>{
+        this.CompanyModel.update(id,data)
         .then((company)=>{
-            res.status(201).send(company);
-        }).catch(err => res.status(500).send(err));
+            resolve(defaultResponse(company));
+        }).catch(err => reject(errorResponse(err,HttpStatus.UNPROCESSABLE_ENTITY)));
+       }) 
     }
 
     /**
@@ -128,11 +134,13 @@ class CompanyController{
      * @method delete
      * @returns {Object} INFO JSON
      */
-    delete(){
-        CompanyModel.delete(req.params.id)
-        .then(()=>{
-            res.status(200).send({delete: true});
-        }).catch(err => console.error.bind(console, `Error $(err)`));
+    delete(id){
+        return new Promise((resolve,reject)=>{
+            this.CompanyModel.delete(id)
+            .then(()=>{
+                resolve(defaultResponse(null,HttpStatus.NO_CONTENT));
+            }).catch(err => reject(errorResponse(err,HttpStatus.UNPROCESSABLE_ENTITY)));
+        })
     }
 }
 

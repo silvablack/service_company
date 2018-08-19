@@ -60,7 +60,7 @@ describe('Routes company',()=>{
                     expect(res.body.name).to.be.eql(newCompany.name);
                     expect(res.body.mail).to.be.eql(newCompany.mail);
                     expect(res.body.cnpj).to.be.eql(newCompany.cnpj);
-                    expect(res.status).to.be.eql(200);
+                    expect(res.status).to.be.eql(201);
                     done(err);
                 });
         })
@@ -77,7 +77,7 @@ describe('Routes company',()=>{
                 .end((err,res)=>{
                     expect(res.body._id).to.be.eql(defaultCompany._id);
                     expect(res.body.name).to.be.eql(name);
-                    expect(res.status).to.be.eql(201);
+                    expect(res.status).to.be.eql(200);
                     done(err);
                 });
         })
@@ -88,8 +88,7 @@ describe('Routes company',()=>{
             request
                 .delete('/company/'+defaultCompany._id)
                 .end((err,res)=>{
-                    expect(res.body.delete).to.be.eql(true);
-                    expect(res.status).to.be.eql(200);
+                    expect(res.status).to.be.eql(204);
                     done(err);
                 });
         })
