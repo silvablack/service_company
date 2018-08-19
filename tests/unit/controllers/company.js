@@ -23,7 +23,7 @@ describe('Controller Company',()=>{
         });
     }); 
     describe('Get by id Companies',()=>{
-        it('should return a list of companies', done =>{
+        it('should return a company', done =>{
             const Company = {
                 getById: td.function()
             };
@@ -43,7 +43,7 @@ describe('Controller Company',()=>{
         });
     });
     describe('Create Company',()=>{
-        it('should return a list of companies', done =>{
+        it('should create a company', done =>{
             const Company = {
                 create: td.function()
             };
@@ -68,7 +68,7 @@ describe('Controller Company',()=>{
         });
     });
     describe('Update Company',()=>{
-        it('should return a list of companies', done =>{
+        it('should update a company', done =>{
             const Company = {
                 update: td.function()
             };
@@ -92,7 +92,7 @@ describe('Controller Company',()=>{
         });
     });
     describe('Delete Company',()=>{
-        it('should return a list of companies', done =>{
+        it('should delete a company', done =>{
             const Company = {
                 delete: td.function()
             };
