@@ -49,7 +49,14 @@ var companySchema = new Schema({
      * @param String cnpj
      */
     cnpj: String
-});
+},
+{
+    /**
+     * The versionKey is a property set on each document when first created by Mongoose
+     * This keys value contains the internal revision of the document
+     */
+    versionKey:false
+}); 
 
 var Company = mongoose.model('Company',companySchema);
 
