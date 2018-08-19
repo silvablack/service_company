@@ -6,8 +6,8 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "test-integration": "mocha --opts ./tests/integration/mocha.opts ./tests/integration/*.js",
-    "test-unit": "mocha --opts ./tests/unit/mocha.opts ./tests/unit/**/*.js"
+    "test-integration": "NODE_ENV=test mocha --opts ./tests/integration/mocha.opts ./tests/integration/*.js",
+    "test-unit": "NODE_ENV=test mocha --opts ./tests/unit/mocha.opts ./tests/unit/**/*.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

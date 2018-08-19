@@ -26,7 +26,7 @@
    */
   router
   .get('/',(req,res)=>{
-    CompanyController.get()
+    CompanyController.getAllFromCache()
     .then((response) => {
       res.status(response.statusCode).send(response.data);
     });

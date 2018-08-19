@@ -10,11 +10,11 @@ const HttpStatus = require('http-status');
 const defaultResponse = (data, statusCode = HttpStatus.OK) => ({
     data,
     statusCode,
-  });
+});
   
-  const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultResponse({
-    error: message,
-  }, statusCode);
+const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultResponse({
+      error: message,
+},statusCode);
 
 
 class CompanyController{
@@ -41,39 +41,45 @@ class CompanyController{
 
     /**
      * @name get
-     * @description Send request to find all companies
+     * @description return a Promise with data of all Companies
+     * and set data in cache (redis),
      * @param {Request} req 
      * @param {Response} res 
      * @returns {Object}[] Company
      */
-    get(){
+    getAll(){
         return new Promise((resolve,reject)=>{
-            if(this.cache){
-                this.client.get("allCompanies",(err,reply)=>{
-                    if(reply){
-                        console.log('get cache');
-                        this.cache_data = reply;
-                        resolve(defaultResponse(reply));
-                    }else{
-                        this.CompanyModel.getAll()
-                            .then((company)=>{
-                                console.log('find db');
-                                this.client.set('allCompanies',JSON.stringify(company));
-                                this.client.expire('allCompanies',20);
-                                console.log('set cache');
-                            resolve(defaultResponse(company));
-                        }).catch(err => reject(errorResponse(err.message)));
-                    }
-                });
-            }else{
                 this.CompanyModel.getAll()
                     .then((company)=>{
-                        console.log('find db - no cache');
                     resolve(defaultResponse(company));
                 }).catch(err => reject(errorResponse(err.message)));
-            }
         });
     }
+
+    /**
+     * @name getAllFromCache
+     * @description Return a response with all companies from cache
+     * @return Promise<Company>
+     */
+
+     getAllFromCache(){
+         return new Promise((resolve,reject)=>{
+            this.client.get("allCompanies",(err,reply)=>{
+                if(reply){
+                    this.cache_data = reply;
+                    resolve(defaultResponse(reply));
+                }else{
+                    this.CompanyModel.getAll()
+                        .then((company)=>{
+                            this.client.set('allCompanies',JSON.stringify(company));
+                            this.client.expire('allCompanies',20);
+                        resolve(defaultResponse(company));
+                    }).catch(err => reject(errorResponse(err.message)));
+                }
+            });
+         });
+     }
+
 
     /**
      * @name getById

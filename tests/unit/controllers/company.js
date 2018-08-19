@@ -15,7 +15,7 @@ describe('Controller Company',()=>{
             }];
             td.when(Company.getAll()).thenResolve(expectResponse);
             const companyController = new CompanyController(Company,false);
-            companyController.get().then((response)=>{
+            companyController.getAll().then((response)=>{
                 expect(response.data).to.be.eql(expectResponse);
                 done();
             });
