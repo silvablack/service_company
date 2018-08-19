@@ -6,8 +6,10 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "node ./src/index.js",
+    "test": "npm run test-unit && npm run test-integration && npm run test-contract",
     "test-integration": "NODE_ENV=test mocha --opts ./tests/integration/mocha.opts ./tests/integration/*.js",
-    "test-unit": "NODE_ENV=test mocha --opts ./tests/unit/mocha.opts ./tests/unit/**/*.js"
+    "test-unit": "NODE_ENV=test mocha --opts ./tests/unit/mocha.opts ./tests/unit/**/*.js",
+    "test-contract": "NODE_ENV=test mocha --opts ./tests/contracts/mocha.opts ./tests/contracts/*.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -23,6 +25,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "joi": "^13.6.0",
     "mocha": "^5.2.0",
     "supertest": "^3.1.0",
     "testdouble": "^3.8.1"
