@@ -4,7 +4,7 @@ describe('Routes company',()=>{
         _id: '5b74e44d6906800036631800',
         name: 'CEMAR - Companhia Elétrica',
         mail: 'cemar@cemar.com.br',
-        cnpj: '00011122299'
+        cnpj: '05082494000114'
     };
 
     beforeEach(done=>{
@@ -50,7 +50,7 @@ describe('Routes company',()=>{
             _id: '5b74e44d6906800036631801',
             name: 'CAEMA - Companhia de Águas e Esgoto',
             mail: 'caema@caema.com.br',
-            cnpj: '00011122210'
+            cnpj: '50960407000139'
         };
         it('should create company object',done => {
             request
