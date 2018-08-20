@@ -9,7 +9,9 @@
     "test": "npm run test-unit && npm run test-integration && npm run test-contract",
     "test-integration": "NODE_ENV=test mocha --opts ./tests/integration/mocha.opts ./tests/integration/*.js",
     "test-unit": "NODE_ENV=test mocha --opts ./tests/unit/mocha.opts ./tests/unit/**/*.js",
-    "test-contract": "NODE_ENV=test mocha --opts ./tests/contracts/mocha.opts ./tests/contracts/*.js"
+    "test-contract": "NODE_ENV=test mocha --opts ./tests/contracts/mocha.opts ./tests/contracts/*.js",
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "eslint '**/*.js' --fix"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -25,6 +27,11 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "joi": "^13.6.0",
     "mocha": "^5.2.0",
     "supertest": "^3.1.0",

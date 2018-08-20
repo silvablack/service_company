@@ -1,0 +1,21 @@
+{
+    "extends": "airbnb",
+    "globals":{
+     "describe": true,
+     "it": true,
+     "td": true,
+     "expect": true,
+     "app": true,
+     "request": true,
+     "beforeEach": true,
+     "Joi": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-underscore-dangle":[2,{"allow":["_id"]}],
+        "class-methods-use-this": [0]
+    }
+}

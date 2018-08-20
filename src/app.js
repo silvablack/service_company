@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-'use strict';
+
 /**
  * @requires express server
  */
@@ -19,10 +19,10 @@ const app = express();
 /**
  * @requires body parser to Response
  */
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true,
 }));
 
 app.use(bodyParser.json());
@@ -30,13 +30,13 @@ app.use(bodyParser.json());
 /**
  * @requires config routes to site index and company
  */
-const index = require("./routes/index");
-const companyRoute = require("./routes/companyRoute");
+const index = require('./routes/index');
+const companyRoute = require('./routes/companyRoute');
 
 /**
  * @description Set routes config on server
  */
 app.use('/', index);
-app.use('/company',companyRoute);
+app.use('/company', companyRoute);
 
 module.exports = app;

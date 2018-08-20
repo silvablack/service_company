@@ -9,11 +9,11 @@ const app = require('./app');
 /**
  * @description Define host and port to server listening
  */
-const _PORT = process.env.PORT_SERVICE_COMPANY;
-const _HOST = process.env.URL_SERVICE_COMPANY;
+const PORT = process.env.PORT_SERVICE_COMPANY;
+const HOST = process.env.URL_SERVICE_COMPANY;
 
 /**
  * @description init listening
  */
-app.listen(_PORT,_HOST);
-console.log(`Servidor rodando em http://${_HOST}:${_PORT}`);
+app.listen(PORT, HOST);
+console.log(`Servidor rodando em http://${HOST}:${PORT}`);
