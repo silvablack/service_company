@@ -58,17 +58,17 @@ class CompanyController {
 
   getAllFromCache() {
     return new Promise((resolve, reject) => {
-      this.client.get('allCompanies', (err, reply) => {
+      /**
+      * @constructor Redis Client
+      */
+      const client = redis.createClient(`redis://${process.env.URL_CACHE_COMPANY}`);
+      client.get('allCompanies', (err, reply) => {
         if (reply) {
           resolve(defaultResponse(reply));
         }
       });
       this.CompanyModel.getAll()
         .then((company) => {
-          /**
-          * @constructor Redis Client
-          */
-          const client = redis.createClient(`redis://${process.env.URL_CACHE_COMPANY}`);
           client.set('allCompanies', JSON.stringify(company));
           client.expire('allCompanies', 20);
           resolve(defaultResponse(company));
