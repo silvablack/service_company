@@ -24,6 +24,8 @@ const companySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    minlength: 10,
+    maxlength: 60,
   },
   /**
      * @param String mail <Validate|mail>
@@ -41,7 +43,12 @@ const companySchema = new mongoose.Schema({
   /**
      * @param String cnpj
      */
-  cnpj: String,
+  cnpj: {
+    type: String,
+    minlength: 14,
+    maxlength: 14,
+  },
+
 },
 {
   /**
