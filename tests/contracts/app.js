@@ -19,10 +19,10 @@ describe('Test Contract', () => {
   describe('Route /GET /company', () => {
     it('should return a list with valid schema', (done) => {
       const expectedSchema = Joi.array().items(Joi.object().keys({
-        _id: Joi.string(),
-        name: Joi.string(),
+        _id: Joi.string().alphanum(),
+        name: Joi.string().min(10).max(60),
         mail: Joi.string().email({ minDomainsAtoms: 3 }),
-        cnpj: Joi.string(),
+        cnpj: Joi.string().min(14).max(14),
       }));
       request
         .get('/company')
@@ -36,10 +36,10 @@ describe('Test Contract', () => {
   describe('Route /GET /company/:id', () => {
     it('should return a company valid schema', (done) => {
       const expectedSchema = Joi.object().keys({
-        _id: Joi.string(),
-        name: Joi.string(),
+        _id: Joi.string().alphanum(),
+        name: Joi.string().min(10).max(60),
         mail: Joi.string().email({ minDomainsAtoms: 3 }),
-        cnpj: Joi.string(),
+        cnpj: Joi.string().min(14).max(14),
       });
       request
         .get(`/company/${defaultCompany._id}`)
@@ -60,10 +60,10 @@ describe('Test Contract', () => {
 
     it('should create company and check if a schema is valid', (done) => {
       const expectedSchema = Joi.object().keys({
-        _id: Joi.string(),
-        name: Joi.string(),
+        _id: Joi.string().alphanum(),
+        name: Joi.string().min(10).max(60),
         mail: Joi.string().email({ minDomainsAtoms: 3 }),
-        cnpj: Joi.string(),
+        cnpj: Joi.string().min(14).max(14),
       });
       request
         .post('/company')
@@ -79,10 +79,10 @@ describe('Test Contract', () => {
     it('should update company and check if a schema is valid', (done) => {
       const name = 'CEMAR - Compania Elétrica 2';
       const expectedSchema = Joi.object().keys({
-        _id: Joi.string(),
-        name: Joi.string(),
+        _id: Joi.string().alphanum(),
+        name: Joi.string().min(10).max(60),
         mail: Joi.string().email({ minDomainsAtoms: 3 }),
-        cnpj: Joi.string(),
+        cnpj: Joi.string().min(14).max(14),
       });
       request
         .put(`/company/${defaultCompany._id}`)
