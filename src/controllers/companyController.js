@@ -60,7 +60,6 @@ class CompanyController {
     return new Promise((resolve, reject) => {
       this.client.get('allCompanies', (err, reply) => {
         if (reply) {
-          this.cache_data = reply;
           resolve(defaultResponse(reply));
         }
       });
