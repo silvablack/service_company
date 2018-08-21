@@ -1,4 +1,11 @@
 /**
+ * @author Paulo Silva
+ * @description Company Controller Service
+ * @returns methods <get, getById, post, put, delete>
+ * @version 1.0.0
+ */
+
+/**
  * @requires Http Status
  */
 const HttpStatus = require('http-status');
@@ -6,13 +13,10 @@ const HttpStatus = require('http-status');
 * @requires Redis Data Cache
 */
 const redis = require('redis');
-/**
- * @author Paulo Silva
- * @description Company Controller Service
- * @returns methods <get, getById, post, put, delete>
- * @version 1.0.0
- */
 
+/**
+* @description Interfaces to data response
+*/
 const defaultResponse = (data, statusCode = HttpStatus.OK) => ({
   data,
   statusCode,
@@ -24,28 +28,18 @@ const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultR
 
 
 class CompanyController {
-  constructor(Company, cache = true) {
+  constructor(Company) {
     /**
     * @requires Company Model
     */
     this.CompanyModel = Company;
-
-    if (cache) {
-      this.cache = cache;
-      /**
-      * @constructor Redis Client
-      */
-      this.client = redis.createClient(`redis://${process.env.URL_CACHE_COMPANY}`);
-    }
   }
 
   /**
      * @name get
      * @description return a Promise with data of all Companies
      * and set data in cache (redis),
-     * @param {Request} req
-     * @param {Response} res
-     * @returns {Object}[] Company
+     * @returns Promise CompanyController.getAll()
      */
   getAll() {
     return new Promise((resolve, reject) => {
@@ -59,7 +53,7 @@ class CompanyController {
   /**
      * @name getAllFromCache
      * @description Return a response with all companies from cache
-     * @return Promise<Company>
+     * @return Promise CompanyController.getAllFromCache()
      */
 
   getAllFromCache() {
@@ -72,8 +66,12 @@ class CompanyController {
       });
       this.CompanyModel.getAll()
         .then((company) => {
-          this.client.set('allCompanies', JSON.stringify(company));
-          this.client.expire('allCompanies', 20);
+          /**
+          * @constructor Redis Client
+          */
+          const client = redis.createClient(`redis://${process.env.URL_CACHE_COMPANY}`);
+          client.set('allCompanies', JSON.stringify(company));
+          client.expire('allCompanies', 20);
           resolve(defaultResponse(company));
         }).catch(erro => reject(errorResponse(erro.message)));
     });
@@ -83,10 +81,8 @@ class CompanyController {
   /**
      * @name getById
      * @description Send Request to Find Model By ID
-     * @param {Request} req
-     * @param {Response} res
      * @method getById
-     * @returns {Object} Company
+     * @returns Promise CompanyController.getById(id)
      */
   getById(id) {
     return new Promise((resolve, reject) => {
@@ -100,10 +96,8 @@ class CompanyController {
   /**
      * @name post
      * @description Send Company Object to Create Model
-     * @param {Request} req
-     * @param {Response} res
      * @method create
-     * @returns {Object} Company
+     * @returns Promise CompanyController.post(, data)
      */
   post(data) {
     return new Promise((resolve, reject) => {
@@ -117,10 +111,8 @@ class CompanyController {
   /**
      * @name put
      * @description Send Param ID and Data Company to Model Update
-     * @param {Request} req
-     * @param {Response} res
      * @method update
-     * @returns {Object} Company
+     * @returns Promise CompanyController.put(id, data)
      */
   put(id, data) {
     return new Promise((resolve, reject) => {
@@ -134,10 +126,8 @@ class CompanyController {
   /**
      * @name delete
      * @description Delete Company data on Mongo
-     * @param {Request} req
-     * @param {Response} res
      * @method delete
-     * @returns {Object} INFO JSON
+     * @returns Https Status 204
      */
   delete(id) {
     return new Promise((resolve, reject) => {
