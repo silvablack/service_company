@@ -9,8 +9,8 @@ const app = require('./app');
 /**
  * @description Define host and port to server listening
  */
-const PORT = process.env.PORT_SERVICE_COMPANY;
-const HOST = process.env.URL_SERVICE_COMPANY;
+const PORT = process.env.PORT_SERVICE_COMPANY || 5000;
+const HOST = process.env.URL_SERVICE_COMPANY || '0.0.0.0';
 
 /**
  * @description init listening
