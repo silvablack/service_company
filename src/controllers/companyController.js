@@ -61,7 +61,8 @@ class CompanyController {
       /**
       * @constructor Redis Client
       */
-      const client = redis.createClient(`redis://${process.env.URL_CACHE_COMPANY}`);
+      const client = redis.createClient(`redis://${process.env.URI_CACHE_COMPANY}`);
+      client.auth(process.env.PASSWORD_CACHE_COMPANY);
       client.get('allCompanies', (err, reply) => {
         if (reply) {
           resolve(defaultResponse(reply));

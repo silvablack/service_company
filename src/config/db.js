@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 /**
  * @constructor Connect Mongo
  */
-mongoose.connect(`mongodb://${process.env.URL_DATA_COMPANY}:${process.env.PORT_DATA_COMPANY}/db_challenge`, { useNewUrlParser: true });
+mongoose.connect(`mongodb://${process.env.URI_DATA_COMPANY}`, { useNewUrlParser: true });
 /**
  * @description Define Schema
  */
