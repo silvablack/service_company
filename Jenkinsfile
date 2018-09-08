@@ -31,7 +31,7 @@ node {
     }
 
     stage('Send repository') {
-        docker.withRegistry('666829565535.dkr.ecr.us-east-2.amazonaws.com/aws-ecr-api-company', 'ecr:us-east-1:ecr-credentials'){
+        docker.withRegistry('666829565535.dkr.ecr.us-east-2.amazonaws.com/aws-ecr-api-company', 'ecr:us-east-2:ecr-credentials'){
             app.image().push('latest')
         }
     }
